@@ -1,8 +1,8 @@
-import notesContext from "../context_useContext/notes/notesContext";
-import React, { useContext, useEffect, useState } from "react";
+import usersContext from "../context_useContext/usersContext";
+import React, { useContext, useState } from "react";
 
 export default function Login() {
-  const { login } = useContext(notesContext);
+  const { login } = useContext(usersContext);
 
   const [luser, setLuser] = useState({ email: "", password: "" });
   const onSubmit = (e) => {

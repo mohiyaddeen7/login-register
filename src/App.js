@@ -3,19 +3,17 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NotesState from "./context_useContext/notes/NotesState";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-// import { useNavigate } from "react-router-dom";
+import UsersState from "./context_useContext/UsersState";
 
 function App() {
-  // const navigate = useNavigate();
   return (
     <Router>
-      <NotesState >
+      <UsersState>
         <div className="App">
-          <Navbar name={"inotebook"} />
-          <h2>Ladies and Gentelmen, I present to you inotebook</h2>
+          <Navbar name={"Login-register"} />
+          <h2>Ladies and Gentelmen, I present to you login-register</h2>
           <Routes>
             <Route
               exact
@@ -31,7 +29,7 @@ function App() {
             <Route exact path="/signup" element={<Signup />} />
           </Routes>
         </div>
-      </NotesState>
+      </UsersState>
     </Router>
   );
 }

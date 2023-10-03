@@ -1,1 +1,0 @@
-in routes folder all the route structure are stored

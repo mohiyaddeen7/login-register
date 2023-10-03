@@ -26,11 +26,12 @@ router.post(
     }
 
     //check if user already exists
-    
+    let user = await User.findOne({ email: req.body.email });
 
+    // if user does not exists send 409 - conflict status code
     if (user) {
       return res
-        .status(400)
+        .status(409)
         .json({ error: "A user account with this email id already exists" });
     }
 
@@ -39,6 +40,8 @@ router.post(
     //hashing function
     const hashedPassword = await bcrypt.hash(`${req.body.password}`, salt);
 
+
+    // user creation 
     user = User.create({
       name: req.body.name,
       email: req.body.email,
@@ -50,7 +53,9 @@ router.post(
             id: user.id,
           },
         };
+        //JWT token creation
         const jwt_create_Token = jwt.sign(data, JWT_SECRET);
+        // After Successful user creation a JWT token is sent
         res.json({success:true,jwt:jwt_create_Token});
       })
       .catch((err) => {
@@ -76,13 +81,19 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });//user exisrts\
+
+      //checking if user exists
+      let user = await User.findOne({ email });//user exisrts
+
+      // if user does not exists send 409 - conflict status code
       if (!user) {
         return res
-          .status(400)
+          .status(409)
           .json({ error: "Please Enter correct credentials" }); //dont write attacker understanding prompts
       }
 
+
+      //password comparision
       const comparePassword = await bcrypt.compare(password, user.password);
       if (!comparePassword) {
         return res
@@ -96,7 +107,9 @@ router.post(
         },
       };
 
+      //JWT token creation
       const jwt_auth_Token = jwt.sign(payLoad, JWT_SECRET);
+      // After Successful user login a JWT token is sents
       res.json({success:true, jwt:jwt_auth_Token});
     } catch (error) {
       console.log(`error in login:  ${error.message}`);

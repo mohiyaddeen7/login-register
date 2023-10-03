@@ -1,8 +1,8 @@
-import notesContext from "../context_useContext/notes/notesContext";
+import usersContext from "../context_useContext/usersContext";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function Signup() {
-  const { signup } = useContext(notesContext);
+  const { signup } = useContext(usersContext);
 
   const [suser, setSuser] = useState({
     fname: "",

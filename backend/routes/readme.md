@@ -1,1 +1,0 @@
-in models folder all the mongoose models are stored

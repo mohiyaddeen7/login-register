@@ -1,0 +1,50 @@
+* {
+  margin: 0px;
+  padding: 0;
+}
+.nav {
+  background-color: orange;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  box-sizing: border-box;
+}
+
+.nav h3 a {
+  margin-left: 1em;
+  color: black;
+}
+.nav h3 a:link {
+  text-decoration: none;
+}
+
+.list li a:link {
+  text-decoration: none;
+}
+.list li a {
+  color: black;
+  padding: 1em;
+}
+.list {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  height: 10vh;
+  align-items: center;
+}
+
+.dark1 {
+  background-color: #666362;
+  color: white;
+}
+
+.light1 {
+  background-color: orange;
+  color: black;
+  border: 2px solid black;
+}
+
+i{
+  cursor: pointer;
+}

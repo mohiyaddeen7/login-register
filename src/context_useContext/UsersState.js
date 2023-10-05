@@ -39,10 +39,10 @@ const UsersState = ({ props, children }) => {
 
     emailjs
       .send(
-        "service_2bfd1ye",
-        "template_pevkjwr",
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
         templateParams,
-        "f6uNhSkrXxiEaOXCH"
+        "YOUR_publicKey"
       )
       .then(
         function (response) {

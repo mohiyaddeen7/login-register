@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar(prop) {
   const navigate = useNavigate();
   const onClick = () => {
-    localStorage.removeItem("token")
-    navigate('/login')
+    localStorage.removeItem("token");
+    navigate("/login");
   };
   let location = useLocation();
   useEffect(() => {

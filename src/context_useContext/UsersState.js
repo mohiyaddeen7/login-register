@@ -1,6 +1,7 @@
 import UsersContext from "./usersContext";
 import { useNavigate } from "react-router-dom";
-import {useState } from "react";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const UsersState = ({ props, children }) => {
   const navigate = useNavigate();
@@ -17,12 +18,40 @@ const UsersState = ({ props, children }) => {
       });
       if (response.ok) {
         const result = await response.json();
-        localStorage.setItem("token", result.jwt);
-        navigate("/");
+        console.log(result);
+        if (result.e_verification === false) {
+          navigate("/verification_needed");
+        } else {
+          localStorage.setItem("token", result.jwt);
+          navigate("/");
+        }
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const verify = async (token, email) => {
+    var templateParams = {
+      message: `http://localhost:5000/api/auth/verify/${token}`,
+      recepient: email,
+    };
+
+    emailjs
+      .send(
+        "service_2bfd1ye",
+        "template_pevkjwr",
+        templateParams,
+        "f6uNhSkrXxiEaOXCH"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
   };
 
   const signup = async (name, email, password) => {
@@ -40,8 +69,9 @@ const UsersState = ({ props, children }) => {
 
       if (response.ok) {
         const result = await response.json();
-        localStorage.setItem("token", result.jwt);
-        navigate("/");
+        // localStorage.setItem("token", result.jwt, name);
+        await verify(result.jwt, email);
+        navigate("/login");
       }
     } catch (error) {
       console.error(error);
@@ -49,18 +79,15 @@ const UsersState = ({ props, children }) => {
   };
   const getUser = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/getuser",
-        {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
+      const response = await fetch("http://localhost:5000/api/auth/getuser", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
 
-          // body: JSON.stringify(data), // body data type must match "Content-Type" header
-        }
-      );
+        // body: JSON.stringify(data), // body data type must match "Content-Type" header
+      });
       if (response.ok) {
         console.log("hiasdasdas");
         const data = await response.json(); // parses JSON response into native JavaScript objects
@@ -77,7 +104,7 @@ const UsersState = ({ props, children }) => {
         user,
         login,
         signup,
-        getUser
+        getUser,
       }}
     >
       {children}

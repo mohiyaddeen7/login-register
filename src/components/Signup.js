@@ -10,11 +10,11 @@ export default function Signup() {
     password: "",
     cpassword: "",
   });
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
-    if(suser.cpassword===suser.password)
-    signup(suser.fname,suser.email, suser.password);
+    if (suser.cpassword === suser.password)
+      signup(suser.fname, suser.email, suser.password);
     setSuser({ fname: "", email: "", password: "", cpassword: "" });
   };
 

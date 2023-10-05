@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "strongKeyPassword_jwt";
+require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const fetchuser = (req, res, next) => {
-
-  //get the JWT token from request object 
+  //get the JWT token from request object
   const token = req.header("auth-token");
   if (!token) {
     res.status(401).send({ error: "Access Denied (inavlid token)" });
@@ -13,12 +13,10 @@ const fetchuser = (req, res, next) => {
   try {
     const data = jwt.verify(token, JWT_SECRET);
     req.user = data.user;
-   
+    next();
   } catch (err) {
-    res.status(401).send({ error: "Access Denied (inavlid token)" })
+    res.status(401).send({ error: "Access Denied (inavlid token)" });
   }
-
-  next();
 };
 
 module.exports = fetchuser;

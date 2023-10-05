@@ -8,7 +8,8 @@ export default function Home() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    //checking if user is logged in or not
+    //checking if user is logged in or no
+
     if (!localStorage.getItem("token")) {
       console.log(localStorage.getItem("token"));
       navigate("/login");

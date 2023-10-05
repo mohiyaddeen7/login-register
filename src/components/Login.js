@@ -8,7 +8,7 @@ export default function Login() {
   const onSubmit = (e) => {
     e.preventDefault();
     login(luser.email, luser.password);
-    setLuser({email: "", password: "" })
+    setLuser({ email: "", password: "" });
   };
 
   const onChange = (e) => {
